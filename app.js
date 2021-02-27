@@ -1,5 +1,7 @@
 const fs = require ("fs");
 const argv = require('yargs')
+const express = require('express')
+const app = express()
 //melisimo, pille estos son los cursos, 3 pa no enredarme.
 let cursosOf =[
 	          {
@@ -55,10 +57,10 @@ const opciones = {
 function inscribirCurso(){
 	if (argv.id == 1 || argv.id == 2 || argv.id == 3 ){
 		let texto = ` estudiante ${argv.nombre} con el numero de  documento  ${argv.cedula}  matriculado en el curso ${cursosOf[argv.id-1].nombre} con un costo de${cursosOf[argv.id-1].precio}`;
-		fs.writeFile('inscripcionCurso.txt' , texto, (err) => {
-		if(err) throw (err);
+		//fs.writeFile('inscripcionCurso.txt' , texto, (err) => {
+		//if(err) throw (err);
 		console.log('has sido escrito con exito ');
-	});
+	//});
 	}else {
 		console.log('Erro, Id de curso incorrecto');
 		mostrarCursos();
@@ -66,7 +68,9 @@ function inscribirCurso(){
 }
 
 inscribirCurso();
-
+app.get("/",function(req,res){ res.send(texto)
+})
+app.listen(3000)
 
 //let estudiante = cursosOf.find(info => info.id == id)
 
